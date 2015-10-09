@@ -29,7 +29,7 @@ stty -echo
 read -p "Enter Password for user '$username'@'$host': " password
 stty echo
 
-printf "\nSTART\n"
+printf "\n[START] Please wait a few minutes...\n"
 
 request="SELECT DISTINCT CONCAT('SELECT DISTINCT CONCAT(\"', k.\`COLUMN_NAME\`, ' \",', k.\`COLUMN_NAME\`, ', \" exists in ', c.\`TABLE_NAME\`, ' but not exists for ', k.\`REFERENCED_COLUMN_NAME\`, ' in ', k.\`REFERENCED_TABLE_NAME\`, '\") AS \"\" FROM \`', c.\`TABLE_NAME\`, '\` WHERE \`', k.\`COLUMN_NAME\`, '\` NOT IN (SELECT \`', k.\`REFERENCED_COLUMN_NAME\`, '\` FROM \`', k.\`REFERENCED_TABLE_NAME\`, '\`);') AS \"\"
         FROM information_schema.\`TABLE_CONSTRAINTS\` c
@@ -43,4 +43,5 @@ else
    $(mysql -u "$username" -p"$password" -h "$host" "$database" -e "$request" > check.tmp.sql) && $(mysql -u "$username" -p"$password" -h "$host" "$database" < check.tmp.sql > result.txt) && $(rm -f check.tmp.sql)
 fi
 
-printf "COMPLETE\n"
+pwd=$(pwd)
+printf "[COMPLETE] File $pwd/result.txt has been generated\n"
