@@ -2,7 +2,7 @@
 
 username="root"
 host="127.0.0.1"
-database="magento"
+database="mydatabase"
 
 while :
 do
