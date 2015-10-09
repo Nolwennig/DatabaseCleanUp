@@ -7,21 +7,21 @@ database="magento"
 while :
 do
     case "$1" in
-      -u)
-	  username="$2"
-	  shift 2
-	  ;;
-	  -h)
-	  host="$2"
-	  shift 2
-	  ;;
-	  -d)
-	  database="$2"
-	  shift 2
-	  ;;
-      *)
-	  break
-	  ;;
+        -u)
+        username="$2"
+        shift 2
+        ;;
+        -h)
+        host="$2"
+        shift 2
+        ;;
+        -d)
+        database="$2"
+        shift 2
+        ;;
+        *)
+        break
+        ;;
     esac
 done
 
