@@ -36,12 +36,11 @@ request="SELECT DISTINCT CONCAT('SELECT DISTINCT CONCAT(\"', k.\`COLUMN_NAME\`, 
         LEFT JOIN information_schema.\`KEY_COLUMN_USAGE\` k ON c.\`CONSTRAINT_NAME\` = k.\`CONSTRAINT_NAME\`
         WHERE c.\`CONSTRAINT_TYPE\` = 'FOREIGN KEY'  AND c.\`TABLE_SCHEMA\` = DATABASE();"
 
+pwd=$(pwd)
+
 if [ -z $password ]
 then
-   $(mysql -u "$username" -h "$host" "$database" -e "$request" > check.tmp.sql) && $(mysql -u "$username" -h "$host" "$database" < check.tmp.sql > result.txt) && $(rm -f check.tmp.sql)
+   $(mysql -u "$username" -h "$host" "$database" -e "$request" > check.tmp.sql) && $(mysql -u "$username" -h "$host" "$database" < check.tmp.sql > result.txt) && $(rm -f check.tmp.sql) && printf "[COMPLETE] File $pwd/result.txt has been generated\n"
 else
-   $(mysql -u "$username" -p"$password" -h "$host" "$database" -e "$request" > check.tmp.sql) && $(mysql -u "$username" -p"$password" -h "$host" "$database" < check.tmp.sql > result.txt) && $(rm -f check.tmp.sql)
+   $(mysql -u "$username" -p"$password" -h "$host" "$database" -e "$request" > check.tmp.sql) && $(mysql -u "$username" -p"$password" -h "$host" "$database" < check.tmp.sql > result.txt) && $(rm -f check.tmp.sql) && printf "[COMPLETE] File $pwd/result.txt has been generated\n"
 fi
-
-pwd=$(pwd)
-printf "[COMPLETE] File $pwd/result.txt has been generated\n"
